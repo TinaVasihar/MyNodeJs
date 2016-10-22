@@ -3,9 +3,10 @@ var lineReader = require('readline').createInterface({
 input: read.createReadStream('urb.csv'),
 });
 
-var myjson={};
-var heading= [];
+var myjson=[];//Json object
+var heading= [];//array
 var i=0;
+
 lineReader.on('line', function (line) 
 {
   
@@ -16,19 +17,26 @@ lineReader.on('line', function (line)
   else
   {
       var currentLineData = line.split(',');
+var obj={};
       for (var j=0; j<heading.length; j++) {
                      
           if(j === 3){
              myjson[heading[j]] = currentLineData[j]; 
           }
           if (j === 6) {
-              myjson[heading[j]] = currentLineData[j]; 
-          }
+              obj[heading[j]] = currentLineData[j]; 
+           }
+}
+		  myjson.push(obj);
       }
-     // console.log(jsonObj);
-      var jso=JSON.stringify(myjson);
-      read.appendFile('myop1.json',jso,function(err) {});
+     
+      
+  
 
-  }
+});
+lineReader.on('close',function()
+{
+	var jso=JSON.stringify(myjson);
+      read.appendFile('myoutput.json',jso,function(err) {});
 
 });
