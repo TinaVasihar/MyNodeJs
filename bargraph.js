@@ -91,4 +91,4 @@ data.forEach(function(d){
         .attr("dy", "-0.25em")
         .style("text-anchor","end")
         .style("font-size", "12px");
-    });
+    });//done
